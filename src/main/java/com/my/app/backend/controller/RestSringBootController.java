@@ -1,4 +1,4 @@
-package com.my.app.backend;
+package com.my.app.backend.controller;
 
 import java.util.Arrays;
 

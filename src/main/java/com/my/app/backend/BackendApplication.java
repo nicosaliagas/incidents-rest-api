@@ -6,10 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
 import com.my.app.backend.models.EmployeeEntity;
 import com.my.app.backend.repository.EmployeeRepository;
 
 @SpringBootApplication
+@EnableConfigurationProperties
+@EntityScan(basePackages = {"com.my.app.backend.models"})  // force scan JPA entities
 public class BackendApplication implements CommandLineRunner {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
