@@ -18,16 +18,31 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name="mail", unique=true, nullable = false)
+    private String mail;
+    
+    @Column(name="lastName", nullable = false)
+    private String lastName;
 
-    @Column(name="surname")
-    private String surname;
-
-    @Column(name="firstname")
-    private String firstname;
+    @Column(name="firstName", nullable = false)
+    private String firstName;
 
     @Column(name="phone")
     private String phone;
-    
-    @Column(name="email")
-    private String email;
+
+    public UserEntity() { }
+
+	public UserEntity(String lastName, String firstName, String phone, String mail) {
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.phone = phone;
+        this.mail = mail;
+	}
+
+    @Override
+    public String toString() {
+        return "UserEntity [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", phone=" + phone
+                + ", mail=" + mail + "]";
+    }
 }
