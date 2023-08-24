@@ -1,11 +1,19 @@
 package com.my.app.backend.models;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +21,11 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="user_list")
+@Table(name="userList")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="userId")
     private Long id;
     
     @Column(name="mail", unique=true, nullable = false)
@@ -31,6 +40,14 @@ public class UserEntity {
     @Column(name="phone")
     private String phone;
 
+    @CreationTimestamp
+    @Column(nullable = false)
+    private LocalDateTime creationDate;
+
+    //@OneToMany(mappedBy="userId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="userId")
+    public List<IncidentEntity> userIncidentsList;
+
     public UserEntity() { }
 
 	public UserEntity(String lastName, String firstName, String phone, String mail) {
@@ -42,7 +59,10 @@ public class UserEntity {
 
     @Override
     public String toString() {
-        return "UserEntity [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", phone=" + phone
-                + ", mail=" + mail + "]";
+        return "UserEntity [id=" + id + ", mail=" + mail + ", lastName=" + lastName + ", firstName=" + firstName
+                + ", phone=" + phone + ", creationDate=" + creationDate + ", userIncidentsList=" + userIncidentsList
+                + "]";
     }
+
+    
 }
