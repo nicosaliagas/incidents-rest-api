@@ -17,6 +17,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -39,22 +40,23 @@ public class IncidentEntity {
     @Column(nullable = false)
     private LocalDateTime creationDate;
 
-    @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
-    @ManyToOne(optional = false)
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private UserEntity userId;
+    private UserEntity user;
 
     @Override
     public String toString() {
         return "IncidentEntity [id=" + id + ", description=" + description + ", creationDate=" + creationDate
-                + ", userId=" + userId + "]";
+                + ", userId=" + user + "]";
     }
 
     public IncidentEntity() { }
 
-    public IncidentEntity(String description, UserEntity userId) {
+    public IncidentEntity(String description, UserEntity user) {
         this.description = description;
-        this.userId = userId;
+        this.user = user;
     }
 
     

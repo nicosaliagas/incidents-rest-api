@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,9 +46,9 @@ public class UserEntity {
     @Column(nullable = false)
     private LocalDateTime creationDate;
 
-    //@OneToMany(mappedBy="userId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @OneToMany(mappedBy="userId")
-    public List<IncidentEntity> userIncidentsList;
+    @JsonManagedReference
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+    private List<IncidentEntity> userIncidentsList;
 
     public UserEntity() { }
 
