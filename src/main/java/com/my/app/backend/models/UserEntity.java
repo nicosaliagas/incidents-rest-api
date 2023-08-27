@@ -46,9 +46,9 @@ public class UserEntity {
     @Column(nullable = false)
     private LocalDateTime creationDate;
 
-    @JsonManagedReference
+    /*@JsonManagedReference
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade= CascadeType.ALL)
-    private List<IncidentEntity> userIncidentsList;
+    private List<IncidentEntity> userIncidentsList;*/
 
     public UserEntity() { }
 
@@ -62,9 +62,6 @@ public class UserEntity {
     @Override
     public String toString() {
         return "UserEntity [id=" + id + ", mail=" + mail + ", lastName=" + lastName + ", firstName=" + firstName
-                + ", phone=" + phone + ", creationDate=" + creationDate + ", userIncidentsList=" + userIncidentsList
-                + "]";
+                + ", phone=" + phone + ", creationDate=" + creationDate + "]";
     }
-
-    
 }

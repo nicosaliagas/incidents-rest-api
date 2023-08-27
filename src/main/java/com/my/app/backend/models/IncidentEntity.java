@@ -40,10 +40,8 @@ public class IncidentEntity {
     @Column(nullable = false)
     private LocalDateTime creationDate;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity user;
 
     @Override
