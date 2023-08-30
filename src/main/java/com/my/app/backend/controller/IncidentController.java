@@ -24,14 +24,13 @@ import com.my.app.backend.service.IncidentService;
 public class IncidentController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	// TODO: sortir catégorie dans un nouveau controller
 	@Autowired
     private CategoryService categoryService;
 
 	@Autowired
     private IncidentService incidentService;
 
-	@GetMapping("/categories")
+	@GetMapping("/incident-categories")
 	public List<CategoryEntity> getCategories() {
 		List<CategoryEntity> categories = categoryService.list();
 
