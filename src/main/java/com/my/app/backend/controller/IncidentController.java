@@ -47,7 +47,7 @@ public class IncidentController {
 	@PostMapping("/incidents")
 	public ResponseEntity<IncidentEntity> createIncident(@RequestBody IncidentEntity newIncident) {
 		try {
-			IncidentEntity _incident = incidentService.newIncident(new IncidentEntity(newIncident.getDescription(), newIncident.getUser()));
+			IncidentEntity _incident = incidentService.newIncident(new IncidentEntity(newIncident.getDescription(), newIncident.getCategory(), newIncident.getUser()));
 			return new ResponseEntity<>(_incident, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

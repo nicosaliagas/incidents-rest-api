@@ -33,6 +33,9 @@ public class IncidentEntity {
     @Column(name = "incidentId")
     private Long id;
 
+    @Column(name = "categoryId")
+    private int category;
+
     @Column(name = "description")
     private String description;
 
@@ -44,16 +47,18 @@ public class IncidentEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
+    
     @Override
     public String toString() {
-        return "IncidentEntity [id=" + id + ", description=" + description + ", creationDate=" + creationDate
-                + ", userId=" + user + "]";
+        return "IncidentEntity [id=" + id + ", category=" + category + ", description=" + description
+                + ", creationDate=" + creationDate + ", user=" + user + "]";
     }
 
     public IncidentEntity() { }
 
-    public IncidentEntity(String description, UserEntity user) {
+    public IncidentEntity(String description, int category, UserEntity user) {
         this.description = description;
+        this.category = category;
         this.user = user;
     }
 
