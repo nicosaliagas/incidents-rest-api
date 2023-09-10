@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.my.app.backend.models.IncidentEntity;
+import com.my.app.backend.models.Incident;
 import com.my.app.backend.repository.IncidentRepository;
 
 @Service
@@ -14,11 +14,11 @@ public class IncidentService {
     @Autowired
     private IncidentRepository incidentRepository;
 
-    public List<IncidentEntity> list() {
+    public List<Incident> list() {
         return incidentRepository.findAll();
     }
 
-    public IncidentEntity newIncident(IncidentEntity incident) {
+    public Incident newIncident(Incident incident) {
         return incidentRepository.save(incident);
     }
 }

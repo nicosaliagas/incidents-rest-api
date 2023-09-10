@@ -24,7 +24,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name="userList")
-public class UserEntity {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="userId")
@@ -50,9 +50,9 @@ public class UserEntity {
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade= CascadeType.ALL)
     private List<IncidentEntity> userIncidentsList;*/
 
-    public UserEntity() { }
+    public User() { }
 
-	public UserEntity(String lastName, String firstName, String phone, String mail) {
+	public User(String lastName, String firstName, String phone, String mail) {
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.phone = phone;

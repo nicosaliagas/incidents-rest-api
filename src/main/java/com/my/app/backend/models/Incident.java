@@ -27,17 +27,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "incident")
-public class IncidentEntity {
+public class Incident {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "incidentId")
     private Long id;
 
-    @Column(name = "categoryId")
-    private int category;
-
     @Column(name = "description")
     private String description;
+    
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @CreationTimestamp
     @Column(nullable = false)
@@ -45,8 +46,7 @@ public class IncidentEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
-
+    private User user;
     
     @Override
     public String toString() {
@@ -54,9 +54,9 @@ public class IncidentEntity {
                 + ", creationDate=" + creationDate + ", user=" + user + "]";
     }
 
-    public IncidentEntity() { }
+    public Incident() { }
 
-    public IncidentEntity(String description, int category, UserEntity user) {
+    public Incident(String description, Category category, User user) {
         this.description = description;
         this.category = category;
         this.user = user;

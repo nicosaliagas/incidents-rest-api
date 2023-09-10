@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import com.my.app.backend.models.EmployeeEntity;
+import com.my.app.backend.models.Employee;
 import com.my.app.backend.repository.EmployeeRepository;
 
 @SpringBootApplication
@@ -28,7 +28,7 @@ public class BackendApplication implements CommandLineRunner {
 	@Override
     public void run(String... args) throws Exception 
     {       
-        Optional<EmployeeEntity> emp = employeeRepository.findById(1L);
+        Optional<Employee> emp = employeeRepository.findById(1L);
  
         logger.info("Employee id 2 -> {}", emp.get());
     }

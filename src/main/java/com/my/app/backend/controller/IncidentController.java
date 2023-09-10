@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.my.app.backend.models.CategoryEntity;
-import com.my.app.backend.models.IncidentEntity;
-import com.my.app.backend.models.UserEntity;
+import com.my.app.backend.models.Category;
+import com.my.app.backend.models.Incident;
 import com.my.app.backend.service.CategoryService;
 import com.my.app.backend.service.IncidentService;
 
@@ -31,8 +30,8 @@ public class IncidentController {
     private IncidentService incidentService;
 
 	@GetMapping("/incident-categories")
-	public List<CategoryEntity> getCategories() {
-		List<CategoryEntity> categories = categoryService.list();
+	public List<Category> getCategories() {
+		List<Category> categories = categoryService.list();
 
 		logger.info("Catégories -> {}", categories);
 
@@ -40,14 +39,14 @@ public class IncidentController {
 	}
 
 	@GetMapping("/incidents")
-	public List<IncidentEntity> getIncidents() {
+	public List<Incident> getIncidents() {
 		return incidentService.list();
 	}
 
 	@PostMapping("/incidents")
-	public ResponseEntity<IncidentEntity> createIncident(@RequestBody IncidentEntity newIncident) {
+	public ResponseEntity<Incident> createIncident(@RequestBody Incident newIncident) {
 		try {
-			IncidentEntity _incident = incidentService.newIncident(new IncidentEntity(newIncident.getDescription(), newIncident.getCategory(), newIncident.getUser()));
+			Incident _incident = incidentService.newIncident(new Incident(newIncident.getDescription(), newIncident.getCategory(), newIncident.getUser()));
 			return new ResponseEntity<>(_incident, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

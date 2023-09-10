@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.my.app.backend.models.UserEntity;
+import com.my.app.backend.models.User;
 import com.my.app.backend.service.UserService;
 
 @RestController
@@ -27,8 +27,8 @@ public class UserController {
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	@ResponseBody
-	public List<UserEntity> getUsers() {
-		List<UserEntity> users = userService.list();
+	public List<User> getUsers() {
+		List<User> users = userService.list();
 
 		logger.info("Users -> {}", users);
 
@@ -36,9 +36,9 @@ public class UserController {
 	}
 
 	@PostMapping("/users")
-	public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity newUser) {
+	public ResponseEntity<User> createUser(@RequestBody User newUser) {
 		try {
-			UserEntity _user = userService.newUser(new UserEntity(newUser.getLastName(), newUser.getFirstName(),
+			User _user = userService.newUser(new User(newUser.getLastName(), newUser.getFirstName(),
 					newUser.getPhone(), newUser.getMail()));
 			return new ResponseEntity<>(_user, HttpStatus.CREATED);
 		} catch (Exception e) {
