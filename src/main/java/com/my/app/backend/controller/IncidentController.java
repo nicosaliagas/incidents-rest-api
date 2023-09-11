@@ -2,6 +2,8 @@ package com.my.app.backend.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,7 @@ public class IncidentController {
 	}
 
 	@PostMapping("/incidents")
-	public ResponseEntity<Incident> createIncident(@RequestBody Incident newIncident) {
+	public ResponseEntity<Incident> createIncident(@Valid @RequestBody Incident newIncident) {
 		try {
 			Incident _incident = incidentService.newIncident(new Incident(newIncident.getDescription(), newIncident.getCategory(), newIncident.getUser()));
 			return new ResponseEntity<>(_incident, HttpStatus.CREATED);

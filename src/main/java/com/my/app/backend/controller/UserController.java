@@ -2,6 +2,8 @@ package com.my.app.backend.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class UserController {
 	}
 
 	@PostMapping("/users")
-	public ResponseEntity<User> createUser(@RequestBody User newUser) {
+	public ResponseEntity<User> createUser(@Valid @RequestBody User newUser) {
 		try {
 			User _user = userService.newUser(new User(newUser.getLastName(), newUser.getFirstName(),
 					newUser.getPhone(), newUser.getMail()));
