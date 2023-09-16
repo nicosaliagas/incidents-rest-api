@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -27,8 +29,8 @@ public class User {
     private Long id;
     
     @Column(name="mail", unique=true)
-    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
-    @NotBlank(message = "Email is mandatory")
+    @Email(message = "L'email n'est pas valide", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @NotBlank(message = "L'email est obligatoire")
     private String mail;
     
     @Column(name="lastName", nullable = false)
@@ -38,6 +40,7 @@ public class User {
     private String firstName;
 
     @Column(name="phone")
+    @Pattern(regexp = "^0\\d{9}$", message = "Le numéro de téléphone n'est pas valide")
     private String phone;
 
     @CreationTimestamp
