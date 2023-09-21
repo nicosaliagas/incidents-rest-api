@@ -10,8 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.beans.factory.annotation.Required;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +29,7 @@ public class Incident {
     private Long id;
 
     @Column(name = "description")
+    @NotBlank(message = "La description est requise")
     private String description;
     
     @ManyToOne
