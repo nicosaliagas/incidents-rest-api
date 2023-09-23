@@ -39,8 +39,8 @@ public class User {
     @Column(name="firstName", nullable = false)
     private String firstName;
 
-    @Column(name="phone")
-    @Pattern(regexp = "^0\\d{9}$", message = "Le numéro de téléphone n'est pas valide")
+    @Column(name="phone", nullable = true)
+    @Pattern(regexp = "^0\\d{9}$|", message = "Le numéro de téléphone n'est pas valide")
     private String phone;
 
     @CreationTimestamp

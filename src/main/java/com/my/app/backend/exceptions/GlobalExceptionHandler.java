@@ -1,4 +1,4 @@
-package com.my.app.backend.handler;
+package com.my.app.backend.exceptions;
 
 import java.util.HashMap;
 import java.util.Map;
