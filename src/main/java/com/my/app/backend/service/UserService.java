@@ -21,14 +21,14 @@ public class UserService {
     }
     
     public User findUserById(Long id) {
-        return userRepository.getReferenceById(id);
+        return userRepository.findById(id).get();
     }
     
     public Optional<User> findUserByMail(String email) {
         return userRepository.findByMail(email);
     }
 
-    public User newUser(User newUser) {
+    public User saveUser(User newUser) {
         try {
             return userRepository.save(newUser);
         } catch (DataIntegrityViolationException ex) {

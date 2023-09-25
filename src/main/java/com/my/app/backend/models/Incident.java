@@ -40,6 +40,7 @@ public class Incident {
     @Column(nullable = false)
     private LocalDateTime creationDate;
 
+    
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
