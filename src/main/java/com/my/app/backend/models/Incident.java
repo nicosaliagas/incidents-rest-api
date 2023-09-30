@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Required;
 
 import lombok.Getter;
@@ -40,6 +41,9 @@ public class Incident {
     @Column(nullable = false)
     private LocalDateTime creationDate;
 
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private LocalDateTime updateDate;
     
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

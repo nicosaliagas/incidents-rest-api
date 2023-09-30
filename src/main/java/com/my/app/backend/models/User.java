@@ -14,6 +14,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +47,10 @@ public class User {
     @CreationTimestamp
     @Column(nullable = false)
     private LocalDateTime creationDate;
+    
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private LocalDateTime updateDate;
 
     /*@JsonManagedReference
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade= CascadeType.ALL)
