@@ -29,20 +29,21 @@ public class User {
     @Column(name="userId")
     private Long id;
     
-    @Column(name="mail", unique=true)
+    @Column(name="emailAddress", unique=true)
     @Email(message = "L'email n'est pas valide", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     @NotBlank(message = "L'email est obligatoire")
-    private String mail;
+    private String emailAddress;
     
+    @Column(name="password", nullable = false)
+    @Size(min = 6, max = 10)
+    @NotBlank(message = "Le mot de passe est obligatoire")
+    private String password;
+
     @Column(name="lastName", nullable = false)
     private String lastName;
 
     @Column(name="firstName", nullable = false)
     private String firstName;
-
-    @Column(name="phone", nullable = true)
-    @Pattern(regexp = "^0\\d{9}$|", message = "Le numéro de téléphone n'est pas valide")
-    private String phone;
 
     @CreationTimestamp
     @Column(nullable = false)
@@ -58,16 +59,16 @@ public class User {
 
     public User() { }
 
-	public User(String lastName, String firstName, String phone, String mail) {
+	public User(String lastName, String firstName, String emailAddress, String password) {
 		this.lastName = lastName;
 		this.firstName = firstName;
-		this.phone = phone;
-        this.mail = mail;
+        this.emailAddress = emailAddress;
+        this.password = password;
 	}
 
     @Override
     public String toString() {
-        return "UserEntity [id=" + id + ", mail=" + mail + ", lastName=" + lastName + ", firstName=" + firstName
-                + ", phone=" + phone + ", creationDate=" + creationDate + "]";
+        return "UserEntity [id=" + id + ", emailAddress=" + emailAddress + ", password=" + password + ", lastName=" + lastName + ", firstName=" + firstName
+                + ", creationDate=" + creationDate + "]";
     }
 }

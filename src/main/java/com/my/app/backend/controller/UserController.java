@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -67,8 +66,7 @@ public class UserController {
 	@PostMapping()
 	public ResponseEntity<?> createUser(@Valid @RequestBody User newUser) {
 		try {
-			User _user = userService.saveUser(new User(newUser.getLastName(), newUser.getFirstName(),
-					newUser.getPhone(), newUser.getMail()));
+			User _user = userService.saveUser(new User(newUser.getLastName(), newUser.getFirstName(), newUser.getEmailAddress(), newUser.getPassword()));
 			return new ResponseEntity<>(_user, HttpStatus.CREATED);
 		} catch (ContrainteUniqueException ex) {
 			return ResponseEntity.badRequest().body(ex.getMessage());
@@ -84,7 +82,6 @@ public class UserController {
 			
 			_user.setFirstName(updateUser.getFirstName());
 			_user.setLastName(updateUser.getLastName());
-			_user.setPhone(updateUser.getPhone());
 			
 			return new ResponseEntity<>(userService.saveUser(_user), HttpStatus.OK);
 		} catch (ContrainteUniqueException ex) {
