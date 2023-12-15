@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.my.app.backend.dto.UserGetDto;
 import com.my.app.backend.exceptions.ContrainteUniqueException;
 import com.my.app.backend.models.User;
 import com.my.app.backend.service.UserService;
@@ -30,6 +32,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+    private ModelMapper modelMapper;
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
@@ -43,24 +48,13 @@ public class UserController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public User getUser(@PathVariable Long id) {
+	public UserGetDto getUser(@PathVariable Long id) {
 
-		User user = userService.findUserById(id);
-
-		logger.info("User -> {}", user);
-
-		return user;
-	}
-
-	@RequestMapping(value = "/mail/{mail}", method = RequestMethod.GET)
-	@ResponseBody
-	public Optional<User> findUserByEmail(@PathVariable String mail) {
-
-		Optional<User> user = userService.findUserByMail(mail);
+		Optional<User> user = userService.findUserById(id);
 
 		logger.info("User -> {}", user);
 
-		return user;
+		return convertToDto(user);
 	}
 
 	@PostMapping()
@@ -75,7 +69,7 @@ public class UserController {
 		}
 	}
 
-	@PutMapping()
+	/*@PutMapping()
 	public ResponseEntity<?> putUser(@Valid @RequestBody User updateUser) {
 		try {
 			User _user = userService.findUserById(updateUser.getId());
@@ -89,5 +83,11 @@ public class UserController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}*/
+
+	private UserGetDto convertToDto(Optional<User> user) {
+		UserGetDto userGetDto = modelMapper.map(user, UserGetDto.class);
+		
+		return userGetDto;
 	}
 }
