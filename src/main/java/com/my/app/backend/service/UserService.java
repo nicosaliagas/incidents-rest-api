@@ -20,8 +20,8 @@ public class UserService {
         return userRepository.findAll();
     }
     
-    public Optional<User> findUserById(Long id) {
-        return userRepository.findById(id);
+    public User findUserById(Long id) {
+        return userRepository.findById(id).get();
     }
     
     public User getUserByEmailAndPassword(String emailAddress, String password) {

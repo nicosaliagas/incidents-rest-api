@@ -17,6 +17,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.my.app.backend.validation.CreateUserValidation;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +39,7 @@ public class User {
     
     @Column(name="password", nullable = false)
     @Size(min = 6, max = 10)
-    @NotBlank(message = "Le mot de passe est obligatoire")
+    @NotBlank(groups = CreateUserValidation.class, message = "Le mot de passe est obligatoire")
     private String password;
 
     @Column(name="lastName", nullable = false)

@@ -1,7 +1,7 @@
 package com.my.app.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +19,10 @@ public class UserGetDto {
 
     @JsonProperty("firstName")
     private String firstName;
+    
+    @JsonProperty("creationDate")
+    private LocalDateTime creationDate;
+    
+    @JsonProperty("updateDate")
+    private LocalDateTime updateDate;
 }

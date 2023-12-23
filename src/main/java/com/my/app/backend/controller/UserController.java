@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,6 +25,7 @@ import com.my.app.backend.dto.UserGetDto;
 import com.my.app.backend.exceptions.ContrainteUniqueException;
 import com.my.app.backend.models.User;
 import com.my.app.backend.service.UserService;
+import com.my.app.backend.validation.CreateUserValidation;
 
 @RestController
 @RequestMapping("/api/users")
@@ -50,7 +52,7 @@ public class UserController {
 	@ResponseBody
 	public UserGetDto getUser(@PathVariable Long id) {
 
-		Optional<User> user = userService.findUserById(id);
+		User user = userService.findUserById(id);
 
 		logger.info("User -> {}", user);
 
@@ -58,10 +60,10 @@ public class UserController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> createUser(@Valid @RequestBody User newUser) {
+	public ResponseEntity<?> createUser(@Validated(CreateUserValidation.class) @RequestBody User newUser) {
 		try {
 			User _user = userService.saveUser(new User(newUser.getLastName(), newUser.getFirstName(), newUser.getEmailAddress(), newUser.getPassword()));
-			return new ResponseEntity<>(_user, HttpStatus.CREATED);
+			return new ResponseEntity<>(convertToDto(_user), HttpStatus.CREATED);
 		} catch (ContrainteUniqueException ex) {
 			return ResponseEntity.badRequest().body(ex.getMessage());
 		} catch (Exception e) {
@@ -69,23 +71,24 @@ public class UserController {
 		}
 	}
 
-	/*@PutMapping()
+	@PutMapping()
 	public ResponseEntity<?> putUser(@Valid @RequestBody User updateUser) {
 		try {
-			User _user = userService.findUserById(updateUser.getId());
+			User user = userService.findUserById(updateUser.getId());
 			
-			_user.setFirstName(updateUser.getFirstName());
-			_user.setLastName(updateUser.getLastName());
-			
-			return new ResponseEntity<>(userService.saveUser(_user), HttpStatus.OK);
+			user.setFirstName(updateUser.getFirstName());
+			user.setLastName(updateUser.getLastName());
+			user.setEmailAddress(updateUser.getEmailAddress());
+
+			return new ResponseEntity<>(convertToDto(userService.saveUser(user)), HttpStatus.OK);
 		} catch (ContrainteUniqueException ex) {
 			return ResponseEntity.badRequest().body(ex.getMessage());
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}*/
+	}
 
-	private UserGetDto convertToDto(Optional<User> user) {
+	private UserGetDto convertToDto(User user) {
 		UserGetDto userGetDto = modelMapper.map(user, UserGetDto.class);
 		
 		return userGetDto;
