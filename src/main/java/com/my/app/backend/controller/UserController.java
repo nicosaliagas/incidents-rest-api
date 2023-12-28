@@ -2,6 +2,7 @@ package com.my.app.backend.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -50,7 +51,7 @@ public class UserController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public UserGetDto getUser(@PathVariable Long id) {
+	public UserGetDto getUser(@PathVariable UUID id) {
 
 		User user = userService.findUserById(id);
 

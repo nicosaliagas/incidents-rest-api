@@ -2,6 +2,7 @@ package com.my.app.backend.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,8 +21,16 @@ public class UserService {
         return userRepository.findAll();
     }
     
-    public User findUserById(Long id) {
-        return userRepository.findById(id).get();
+    public User findUserById(UUID id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            return null; // ou jetez une exception, selon vos besoins
+        }
+
+        // return userRepository.findById(id).get();
     }
     
     public User getUserByEmailAndPassword(String emailAddress, String password) {

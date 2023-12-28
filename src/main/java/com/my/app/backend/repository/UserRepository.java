@@ -1,6 +1,7 @@
 package com.my.app.backend.repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,7 @@ import com.my.app.backend.models.User;
 
 @Repository
 public interface UserRepository
-    extends JpaRepository<User, Long> {
+    extends JpaRepository<User, UUID> {
 
   Optional<User> findByEmailAddress(String emailAddress);
 
