@@ -27,10 +27,8 @@ public class UserService {
         if (userOptional.isPresent()) {
             return userOptional.get();
         } else {
-            return null; // ou jetez une exception, selon vos besoins
+            return null;
         }
-
-        // return userRepository.findById(id).get();
     }
     
     public User getUserByEmailAndPassword(String emailAddress, String password) {

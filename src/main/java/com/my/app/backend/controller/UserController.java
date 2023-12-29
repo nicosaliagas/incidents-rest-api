@@ -90,8 +90,6 @@ public class UserController {
 	}
 
 	private UserGetDto convertToDto(User user) {
-		UserGetDto userGetDto = modelMapper.map(user, UserGetDto.class);
-		
-		return userGetDto;
+		return modelMapper.map(user, UserGetDto.class);
 	}
 }
